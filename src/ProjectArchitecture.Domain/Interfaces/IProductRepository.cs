@@ -3,12 +3,13 @@ using System;
 
 namespace ProjectArchitecture.Domain.Interfaces
 {
-    interface IProductRepository
+    public interface IProductRepository
     {
         Task<IEnumerable<Product>> GetAllAsync();
-        Task<Product> GetByIdAsync(int? id); // Avaliar se nullable é viavel ou não
-        Task<Product> Create(Product category);
-        Task<Product> Update(Product category);
-        Task<Product> Remove(Product category);
+        Task<Product?> GetByIdAsync(int? id); // Avaliar se nullable é viavel ou não
+        Task<Product?> GetProductCategoryAsync(int? id); // Avaliar se nullable é viavel ou não
+        Task<Product> CreateAsync(Product product);
+        Task<Product> UpdateAsync(Product product);
+        Task<Product> RemoveAsync(Product product);
     }
 }
