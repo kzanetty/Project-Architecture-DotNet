@@ -25,7 +25,7 @@ namespace ProjectArchitecture.Domain.Entities
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        private void Update(string name, string description, decimal price, int stock, string image, int categoryId)
+        public void Update(string name, string description, decimal price, int stock, string image, int categoryId)
         {
             ValidateDomain(name, description, price, stock, image);
             CategoryId = categoryId;
