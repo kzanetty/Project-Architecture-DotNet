@@ -40,7 +40,7 @@ Camada de Infraestrutura de Dados:
 Dependência com a Camada de Domínio e utiliza pacotes como EntityFrameworkCore.Design, SqlServer e Tools.
 
 Camada de IoC de Infraestrutura (Inversão de Controle):
-Dependências com as camadas de Domínio, Aplicação e Infra.Data. Além disso, inclui uma referência a pacotes para a integração do AutoMapper via injeção de dependência.
+Dependências com as camadas de Domínio, Aplicação e Infra.Data. Além disso, inclui uma referência a pacotes para a integração do AutoMapper via injeção de dependência e também uma referência para o Mediatr.
 
 Camada WebApi:
 Dependência com a Camada Infra.IoC e incorpora referências ao Swagger para documentação da API.

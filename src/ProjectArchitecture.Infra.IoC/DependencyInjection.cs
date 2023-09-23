@@ -20,10 +20,14 @@ namespace ProjectArchitecture.Infra.IoC
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
+
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
+            var myhandlers = AppDomain.CurrentDomain.Load("ProjectArchitecture.Application");
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(myhandlers));
 
             return services;
         }
