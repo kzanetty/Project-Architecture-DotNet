@@ -11,8 +11,8 @@ using ProjectArchitecture.Infra.Data.Context;
 namespace ProjectArchitecture.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230914041714_Inicial")]
-    partial class Inicial
+    [Migration("20230925055602_SeedProducts")]
+    partial class SeedProducts
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,23 +40,6 @@ namespace ProjectArchitecture.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Material Escolar"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Eletrônicos"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Acessórios"
-                        });
                 });
 
             modelBuilder.Entity("ProjectArchitecture.Domain.Entities.Product", b =>

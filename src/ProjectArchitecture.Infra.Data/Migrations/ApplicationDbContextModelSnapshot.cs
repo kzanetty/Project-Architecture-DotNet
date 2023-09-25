@@ -37,23 +37,6 @@ namespace ProjectArchitecture.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Material Escolar"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Eletrônicos"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Acessórios"
-                        });
                 });
 
             modelBuilder.Entity("ProjectArchitecture.Domain.Entities.Product", b =>

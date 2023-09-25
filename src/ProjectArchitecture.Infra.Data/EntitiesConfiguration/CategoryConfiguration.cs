@@ -15,11 +15,11 @@ namespace ProjectArchitecture.Infra.Data.EntitiesConfiguration
             builder.Property(c => c.Name).HasMaxLength(100).IsRequired();
 
             // Esse trecho de código abaixo é opcional. Ele está apenas adicionando uma carga inicial de dados na tabela ao ser criada.
-            builder.HasData(
-                new Category(1, "Material Escolar"),
-                new Category(2, "Eletrônicos"),
-                new Category(3, "Acessórios")
-                );
+            //builder.HasData(
+               // new Category("Material Escolar"),
+                //new Category("Eletrônicos"),
+                //new Category("Acessórios")
+               // );
         }
     }
 }

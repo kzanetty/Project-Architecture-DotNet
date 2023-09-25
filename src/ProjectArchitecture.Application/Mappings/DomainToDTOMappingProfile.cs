@@ -9,10 +9,10 @@ namespace ProjectArchitecture.Application.Mappings
         public DomainToDTOMappingProfile()
         {
             CreateMap<Category, CategoryDTO>().ReverseMap();
-            
+
             CreateMap<Product, ProductDTO>()
-                .ForMember(prod => prod.Category, 
-                            opt => opt.MapFrom(src => src.Category != null ? CategoryMapper.ToCategoryDTO(src.Category) : null))
+                .ForMember(prod => prod.Category,
+                            opt => opt.MapFrom(src => src.Category != null ? CategoryMapper.ToCategoryDTO(src.Category) : null));
         }
     }
 }
