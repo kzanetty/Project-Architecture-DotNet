@@ -9,6 +9,7 @@ namespace ProjectArchitecture.Infra.Data.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
             builder.Property(p => p.Name).HasMaxLength(100).IsRequired();
             builder.Property(p => p.Description).HasMaxLength(200).IsRequired();
