@@ -1,13 +1,15 @@
-﻿using ProjectArchitecture.Application.DTOs;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjectArchitecture.Application.Requests
 {
     public class UpdateProductRequest
     {
-        [Required(ErrorMessage = "The name is required.")]
+        [Required(ErrorMessage = "The Id is required.")]
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "The Name is required.")]
         [MinLength(3)]
         [MaxLength(100)]
         [DisplayName("Name")]

@@ -1,14 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProjectArchitecture.Application.DTOs;
 using ProjectArchitecture.Application.Interfaces;
 using ProjectArchitecture.Application.Requests;
 
-/*
- * Tratamento de erros
- * Status code
- * Autorização e autenticação
- * Especificar retornos corretamente
- */
 namespace ProjectArchitecture.WebApi.Controllers
 {
     [Route("products")]

@@ -8,7 +8,7 @@ namespace ProjectArchitecture.Application.Mappings
     {
         public DomainToDTOMappingProfile()
         {
-            CreateMap<Category, CategoryDTO>().ReverseMap();
+            CreateMap<Category, CategoryDTO>();
 
             CreateMap<Product, ProductDTO>()
                 .ForMember(prod => prod.Category,

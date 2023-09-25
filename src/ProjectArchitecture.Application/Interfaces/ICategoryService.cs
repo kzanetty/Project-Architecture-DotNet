@@ -1,4 +1,5 @@
 ﻿using ProjectArchitecture.Application.DTOs;
+using ProjectArchitecture.Application.Requests;
 
 namespace ProjectArchitecture.Application.Interfaces
 {
@@ -6,8 +7,8 @@ namespace ProjectArchitecture.Application.Interfaces
     {
         Task<IEnumerable<CategoryDTO>> GetCategories();
         Task<CategoryDTO> GetCategoryById(int? id);
-        Task Add(CategoryDTO categoryDTO);
-        Task Update(CategoryDTO categoryDTO);
+        Task Add(CreateCategoryRequest request);
+        Task Update(UpdateCategoryRequest request);
         Task Remove(int? id);
     }
 }

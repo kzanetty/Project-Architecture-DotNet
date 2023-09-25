@@ -1,52 +1,66 @@
 ﻿using AutoMapper;
+using MediatR;
+using ProjectArchitecture.Application.Categories.Commands;
+using ProjectArchitecture.Application.Categories.Queries;
 using ProjectArchitecture.Application.DTOs;
 using ProjectArchitecture.Application.Interfaces;
-using ProjectArchitecture.Domain.Entities;
-using ProjectArchitecture.Domain.Interfaces;
+using ProjectArchitecture.Application.Requests;
 
 namespace ProjectArchitecture.Application.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
+        public CategoryService(IMapper mapper, IMediator mediator)
         {
-            _categoryRepository = categoryRepository;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
-        public async Task Add(CategoryDTO categoryDTO)
+        public async Task Add(CreateCategoryRequest request)
         {
-            var categoryEntity = _mapper.Map<Category>(categoryDTO);
-            await _categoryRepository.Create(categoryEntity);
+            var categoryCreateCommand = _mapper.Map<CategoryCreateCommand>(request)
+                ?? throw new Exception("Entity could not be loaded.");
+
+            await _mediator.Send(categoryCreateCommand);
         }
 
         public async Task<IEnumerable<CategoryDTO>> GetCategories()
         {
-            var categoriesEntity = await _categoryRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<CategoryDTO>>(categoriesEntity);
+            var categoriesQuery = new GetCategoriesQuery()
+                ?? throw new Exception("Entity could not be loaded.");
+
+            var categories = await _mediator.Send(categoriesQuery);
+
+            return _mapper.Map<IEnumerable<CategoryDTO>>(categories);
         }
 
         public async Task<CategoryDTO> GetCategoryById(int? id)
         {
-            var categoryEntity = await _categoryRepository.GetByIdAsync(id);
-            return _mapper.Map<CategoryDTO>(categoryEntity);
+
+            var getCategoryByIdQuery = new GetCategoryByIdQuery(id.Value)
+                ?? throw new Exception("Entity could not be loaded.");
+
+            var category = await _mediator.Send(getCategoryByIdQuery);
+            return _mapper.Map<CategoryDTO>(category);
         }
 
         public async Task Remove(int? id)
         {
-            var categoryEntity = await _categoryRepository.GetByIdAsync(id);
-            if (categoryEntity != null) {
-                await _categoryRepository.Remove(categoryEntity);
-            }
+            var categoryRemoveCommand = new CategoryRemoveCommand(id.Value)
+                ?? throw new Exception("Entity could not be loaded.");
+
+            await _mediator.Send(categoryRemoveCommand);
         }
 
-        public async Task Update(CategoryDTO categoryDTO)
+        public async Task Update(UpdateCategoryRequest request)
         {
-            var categoryEntity = _mapper.Map<Category>(categoryDTO);
-            await _categoryRepository.Update(categoryEntity);
+            var categoryUpdateCommand = _mapper.Map<CategoryUpdateCommand>(request)
+                ?? throw new Exception("Entity could not be loaded.");
+
+            await _mediator.Send(categoryUpdateCommand);
         }
     }
 }
