@@ -1,28 +1,3 @@
-Project in .NET 7.0 with C#.
-This project was created for educational purposes, serving as an illustrative example adhering to clean architecture principles in the context of .NET.
-
-The project is organized into the following layers:
-
-Domain layer:
-No external dependencies or references.
-
-Application layer:
-Dependent on the Domain layer.
-
-Infrastructure.Data layer:
-Dependent on the Domain layer and relies on packages such as EntityFrameworkCore.Design, SqlServer, and Tools.
-
-Infrastructure.IoC layer (Inversion of Control):
-Dependencies on the Domain, Application, and Infrastructure.Data layers. Additionally, it includes a package reference for integrating AutoMapper via dependency injection.
-
-WebApi layer:
-Dependent on the Infrastructure.IoC layer and incorporates references to Swagger for API documentation.
-
-Testing:
-Tests are conducted within the Domain layer and the services within the Service layer.
-
----
-
 Projeto em .NET 7.0 com C#.
 Este projeto foi criado com fins educacionais, servindo como um exemplo ilustrativo que segue os princípios da arquitetura limpa em aplicações .NET.
 O projeto implementa a divisão de camadas na arquitetura Onion e o padrão CQRS.
@@ -47,3 +22,17 @@ Dependência com a Camada Infra.IoC e incorpora referências ao Swagger para doc
 
 Testes:
 Realiza testes unitários na camada de domínio e nas services que se encontram na camada de aplicação.
+
+Pendencias:
+
+- Tratamento de erros com notifications
+- Parametrizar os retornos, o que deve ser void e o que não deve ser
+- Corrigir status retornados
+- Modificar DTS de entrada para Requests
+- Adicionar FluentValidation
+- Adicionar Bogus nos testes unitarios
+- Adicionar testes unitarios nas services
+- Modificar regra de negócios de Update
+- ID no momento da criação está se comportando de forma inesperada
+- Adicição de autenticação e autorização com JWT token
+- Padronizar os Mappings

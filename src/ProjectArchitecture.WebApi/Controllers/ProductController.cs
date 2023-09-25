@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectArchitecture.Application.DTOs;
 using ProjectArchitecture.Application.Interfaces;
+using ProjectArchitecture.Application.Requests;
 
 /*
  * Tratamento de erros
@@ -37,14 +38,14 @@ namespace ProjectArchitecture.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] ProductDTO request)
+        public async Task<IActionResult> CreateProduct([FromBody] CreateProductRequest request)
         {
             await _productService.Add(request);
             return Ok();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateProduct([FromBody] ProductDTO request)
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductRequest request)
         {
             await _productService.Update(request);
             return Ok();
