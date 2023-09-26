@@ -9,11 +9,6 @@ namespace ProjectArchitecture.Domain.Entities
         {
             ValidateDomain(name, description, price, stock, image);
         }
-        public Product(int id, string name, string description, decimal price, int stock, string image)
-        {
-            ValidateId(id);
-            ValidateDomain(name, description, price, stock, image);
-        }
 
         public string Name { get; private set; }
         public string Description { get; private set; }
@@ -21,11 +16,10 @@ namespace ProjectArchitecture.Domain.Entities
         public int Stock { get; private set; }
         public string Image {  get; private set; }
 
-        // Essas propriedades de navegação não fazem parte do modelo de dominio. Logo não precisam dos privates
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        private void Update(string name, string description, decimal price, int stock, string image, int categoryId)
+        public void Update(string name, string description, decimal price, int stock, string image, int categoryId)
         {
             ValidateDomain(name, description, price, stock, image);
             CategoryId = categoryId;
@@ -46,12 +40,6 @@ namespace ProjectArchitecture.Domain.Entities
             Price = price;
             Stock = stock;
             Image = image;
-        }
-
-        private void ValidateId(int id)
-        {
-            DomainExceptionValidation.When(id < 0 , "Invalid Id value.");
-            Id = id;
         }
     }
 }

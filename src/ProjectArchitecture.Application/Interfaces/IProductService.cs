@@ -1,4 +1,5 @@
 ﻿using ProjectArchitecture.Application.DTOs;
+using ProjectArchitecture.Application.Requests;
 
 namespace ProjectArchitecture.Application.Interfaces
 {
@@ -6,9 +7,8 @@ namespace ProjectArchitecture.Application.Interfaces
     {
         Task<IEnumerable<ProductDTO>> GetProducts();
         Task<ProductDTO> GetProductById(int? id);
-        Task<ProductDTO> GetProductCategory(int? id);
-        Task Add(ProductDTO productDTO);
-        Task Update(ProductDTO productDTO);
+        Task Add(CreateProductRequest request);
+        Task Update(UpdateProductRequest request);
         Task Remove(int? id);
     }
 }

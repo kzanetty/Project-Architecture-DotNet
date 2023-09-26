@@ -1,15 +1,15 @@
-﻿using ProjectArchitecture.Domain.Entities;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ProjectArchitecture.Application.DTOs
+namespace ProjectArchitecture.Application.Requests
 {
-    public class ProductDTO
+    public class UpdateProductRequest
     {
+        [Required(ErrorMessage = "The Id is required.")]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "The name is required.")]
+        [Required(ErrorMessage = "The Name is required.")]
         [MinLength(3)]
         [MaxLength(100)]
         [DisplayName("Name")]
@@ -29,15 +29,13 @@ namespace ProjectArchitecture.Application.DTOs
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "The Price is required.")]
-        [Range(1,9999)]
+        [Range(1, 9999)]
         [DisplayName("Stock")]
         public int Stock { get; set; }
 
         [MaxLength(250)]
         [DisplayName("Product image")]
         public string Image { get; set; }
-
-        public CategoryDTO Category { get; set; }
 
         [DisplayName("Categories")]
         public int CategoryId { get; set; }

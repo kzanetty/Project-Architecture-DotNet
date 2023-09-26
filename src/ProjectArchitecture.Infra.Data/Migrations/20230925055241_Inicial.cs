@@ -2,8 +2,6 @@
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace ProjectArchitecture.Infra.Data.Migrations
 {
     /// <inheritdoc />
@@ -47,16 +45,6 @@ namespace ProjectArchitecture.Infra.Data.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Material Escolar" },
-                    { 2, "Eletrônicos" },
-                    { 3, "Acessórios" }
                 });
 
             migrationBuilder.CreateIndex(

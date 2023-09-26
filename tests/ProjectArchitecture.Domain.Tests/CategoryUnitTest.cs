@@ -9,24 +9,15 @@ namespace ProjectArchitecture.Domain.Tests
         [Fact]
         public void CreateCategory_WithValidParameters_ResultObjectValidState()
         {
-            Action action = () => new Category(1, "Category Name");
+            Action action = () => new Category("Category Name");
             action.Should()
                 .NotThrow<DomainExceptionValidation>();
         }
 
         [Fact]
-        public void CreateCategory_NegativeIdValue_DomainExceptionInvalidId()
-        {
-            Action action = () => new Category(-1, "Category Name");
-            action.Should()
-                .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Id value.");
-        }
-
-        [Fact]
         public void CreateCategory_ShortNameValue_DomainExceptionShortName()
         {
-            Action action = () => new Category(1, "a");
+            Action action = () => new Category("a");
             action.Should()
                 .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid name. To short, minimum 3 characters.");
@@ -35,7 +26,7 @@ namespace ProjectArchitecture.Domain.Tests
         [Fact]
         public void CreateCategory_MissingNameValue_DomainExceptionRequiredName()
         {
-            Action action = () => new Category(1, "");
+            Action action = () => new Category("");
             action.Should()
                 .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid name. Name is required.");
@@ -44,7 +35,7 @@ namespace ProjectArchitecture.Domain.Tests
         [Fact]
         public void CreateCategory_WithNullNameValue_DomainExceptionInvalidName()
         {
-            Action action = () => new Category(1, null);
+            Action action = () => new Category(null);
             action.Should()
                 .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid name. Name is required.");

@@ -12,6 +12,7 @@ namespace ProjectArchitecture.Infra.Data.Repositories
         {
             _productContext = context;
         }
+
         public async Task<Product> CreateAsync(Product product)
         {
             _productContext.Products.Add(product);
@@ -26,12 +27,9 @@ namespace ProjectArchitecture.Infra.Data.Repositories
 
         public async Task<Product?> GetByIdAsync(int? id)
         {
-            return await _productContext.Products.FindAsync(id);
-        }
-
-        public async Task<Product?> GetProductCategoryAsync(int? id)
-        {
-            return await _productContext.Products.Include(c => c.Category).SingleOrDefaultAsync(p => p.Id == id);
+            return await _productContext.Products
+                .Include(p => p.Category)
+                .SingleOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Product> RemoveAsync(Product product)

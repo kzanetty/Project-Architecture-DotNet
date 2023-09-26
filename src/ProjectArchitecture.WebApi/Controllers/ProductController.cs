@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProjectArchitecture.Application.DTOs;
 using ProjectArchitecture.Application.Interfaces;
+using ProjectArchitecture.Application.Requests;
+using ProjectArchitecture.Domain.Entities;
 
-/*
- * Tratamento de erros
- * Status code
- * Autorização e autenticação
- * Especificar retornos corretamente
- */
 namespace ProjectArchitecture.WebApi.Controllers
 {
     [Route("products")]
@@ -33,18 +28,21 @@ namespace ProjectArchitecture.WebApi.Controllers
         public async Task<IActionResult> GetProductById([FromRoute] int id)
         {
             var product = await _productService.GetProductById(id);
+            if (product == null)
+                return NotFound($"Product with id {id} not found.");
+
             return Ok(product);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] ProductDTO request)
+        public async Task<IActionResult> CreateProduct([FromBody] CreateProductRequest request)
         {
             await _productService.Add(request);
             return Ok();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateProduct([FromBody] ProductDTO request)
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductRequest request)
         {
             await _productService.Update(request);
             return Ok();
