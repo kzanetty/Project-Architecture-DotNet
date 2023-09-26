@@ -36,3 +36,13 @@ Pendencias:
 - ID no momento da criação está se comportando de forma inesperada
 - Adicição de autenticação e autorização com JWT token
 - Padronizar os Mappings
+
+
+Arrumar
+
+- No endpoint GetCategoryById
+true {
+    HTTP 200 (OK) - E o produtoDTO
+} else {
+    HTTP 404 (Not Found) - E uma mensagem descritiva
+}

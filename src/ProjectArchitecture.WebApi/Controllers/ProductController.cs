@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectArchitecture.Application.Interfaces;
 using ProjectArchitecture.Application.Requests;
+using ProjectArchitecture.Domain.Entities;
 
 namespace ProjectArchitecture.WebApi.Controllers
 {
@@ -27,6 +28,9 @@ namespace ProjectArchitecture.WebApi.Controllers
         public async Task<IActionResult> GetProductById([FromRoute] int id)
         {
             var product = await _productService.GetProductById(id);
+            if (product == null)
+                return NotFound($"Product with id {id} not found.");
+
             return Ok(product);
         }
 

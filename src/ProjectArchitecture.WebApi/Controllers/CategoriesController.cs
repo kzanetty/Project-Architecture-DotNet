@@ -26,6 +26,10 @@ namespace ProjectArchitecture.WebApi.Controllers
         public async Task<IActionResult> GetCategoryById([FromRoute] int id)
         {
             var category = await _categoryService.GetCategoryById(id);
+
+            if(category == null)
+                return NotFound($"Category with id {id} not found.");
+            
             return Ok(category);
         }
 
