@@ -1,10 +1,7 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjectArchitecture.Application.DTOs;
 using ProjectArchitecture.Application.Interfaces;
 using ProjectArchitecture.Application.Requests;
-using ProjectArchitecture.Domain.Entities;
 using System.Net.Mime;
 
 namespace ProjectArchitecture.WebApi.Controllers

@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectArchitecture.Application.Interfaces;
 using ProjectArchitecture.Application.Mappings;
 using ProjectArchitecture.Application.Services;
+using ProjectArchitecture.Application.Validators;
 using ProjectArchitecture.Domain.Interfaces;
 using ProjectArchitecture.Infra.Data.Context;
 using ProjectArchitecture.Infra.Data.Repositories;
@@ -28,6 +31,12 @@ namespace ProjectArchitecture.Infra.IoC
 
             var myhandlers = AppDomain.CurrentDomain.Load("ProjectArchitecture.Application");
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(myhandlers));
+
+
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssemblyContaining(typeof(CreateCategoryRequestValidator));
+            services.AddValidatorsFromAssemblyContaining(typeof(UpdateCategoryRequestValidator));
+
 
             return services;
         }
