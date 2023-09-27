@@ -46,3 +46,18 @@ true {
 } else {
     HTTP 404 (Not Found) - E uma mensagem descritiva
 }
+
+- Validar se na entidade o Name não ultrapassa o limite de caracteres
+- Na entidade product, validar que a image seja null
+- Verificar regra de product. Um produto pode existir sem uma categoria? validar melhor na entidade
+
+
+- DB
+    - No package manage console
+        - Selecionar camada de infra.data
+            - Comandos:
+                - add-migration <nameDaMigration>
+                - update-database
+            - Para adicionar seeddata inicial
+                - add-migration SeedData
+                - update-database

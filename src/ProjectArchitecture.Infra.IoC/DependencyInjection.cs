@@ -36,8 +36,9 @@ namespace ProjectArchitecture.Infra.IoC
             services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssemblyContaining(typeof(CreateCategoryRequestValidator));
             services.AddValidatorsFromAssemblyContaining(typeof(UpdateCategoryRequestValidator));
+            services.AddValidatorsFromAssemblyContaining(typeof(CreateProductRequestValidator));
 
-
+            
             return services;
         }
     }
