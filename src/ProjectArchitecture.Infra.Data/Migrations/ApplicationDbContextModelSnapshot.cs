@@ -56,8 +56,8 @@ namespace ProjectArchitecture.Infra.Data.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Name")
                         .IsRequired()

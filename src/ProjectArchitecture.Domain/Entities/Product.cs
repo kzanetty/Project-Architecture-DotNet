@@ -5,7 +5,7 @@ namespace ProjectArchitecture.Domain.Entities
     public sealed class Product : EntityBase
     {
 
-        public Product(string name, string description, decimal price, int stock, string image)
+        public Product(string name, string description, decimal price, int stock, string? image = null)
         {
             ValidateDomain(name, description, price, stock, image);
         }
@@ -14,7 +14,7 @@ namespace ProjectArchitecture.Domain.Entities
         public string Description { get; private set; }
         public decimal Price { get; private set; }
         public int Stock { get; private set; }
-        public string Image {  get; private set; }
+        public string? Image {  get; private set; }
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }
@@ -24,11 +24,12 @@ namespace ProjectArchitecture.Domain.Entities
             ValidateDomain(name, description, price, stock, image);
             CategoryId = categoryId;
         }
-
-        private void ValidateDomain(string name, string description, decimal price, int stock, string image)
+        //Falta validar se name > 100 caracteres
+        private void ValidateDomain(string name, string description, decimal price, int stock, string? image)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid name. Name is required.");
             DomainExceptionValidation.When(name.Length < 3, "Invalid name. To short, minimum 3 characters.");
+            DomainExceptionValidation.When(name.Length > 100, "Invalid name. To long, maximum 100 characters.");
             DomainExceptionValidation.When(string.IsNullOrEmpty(description), "Invalid description. description is required.");
             DomainExceptionValidation.When(description.Length < 5, "Invalid description. To short, minimum 5 characters.");
             DomainExceptionValidation.When(price < 0, "Invalid price value.");
