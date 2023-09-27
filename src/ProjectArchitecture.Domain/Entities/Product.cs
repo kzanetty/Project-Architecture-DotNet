@@ -24,7 +24,7 @@ namespace ProjectArchitecture.Domain.Entities
             ValidateDomain(name, description, price, stock, image);
             CategoryId = categoryId;
         }
-        //Falta validar se name > 100 caracteres
+
         private void ValidateDomain(string name, string description, decimal price, int stock, string? image)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid name. Name is required.");
