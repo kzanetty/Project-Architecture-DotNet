@@ -19,12 +19,13 @@ namespace ProjectArchitecture.Application.Services
             _mapper = mapper;
         }
 
-        public async Task Add(CreateCategoryRequest request)
+        public async Task<CategoryDTO> Add(CreateCategoryRequest request)
         {
             var categoryCreateCommand = _mapper.Map<CategoryCreateCommand>(request)
                 ?? throw new Exception("Entity could not be loaded.");
 
-            await _mediator.Send(categoryCreateCommand);
+            var categoryCreated = await _mediator.Send(categoryCreateCommand);
+            return _mapper.Map<CategoryDTO>(categoryCreated);
         }
 
         public async Task<IEnumerable<CategoryDTO>> GetCategories()
@@ -55,12 +56,13 @@ namespace ProjectArchitecture.Application.Services
             await _mediator.Send(categoryRemoveCommand);
         }
 
-        public async Task Update(UpdateCategoryRequest request)
+        public async Task<CategoryDTO> Update(UpdateCategoryRequest request)
         {
             var categoryUpdateCommand = _mapper.Map<CategoryUpdateCommand>(request)
                 ?? throw new Exception("Entity could not be loaded.");
 
-            await _mediator.Send(categoryUpdateCommand);
+            var changedCategory = await _mediator.Send(categoryUpdateCommand);
+            return _mapper.Map<CategoryDTO>(changedCategory);
         }
     }
 }

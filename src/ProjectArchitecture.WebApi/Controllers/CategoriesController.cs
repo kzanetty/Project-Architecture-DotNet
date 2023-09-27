@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using ProjectArchitecture.Application.DTOs;
 using ProjectArchitecture.Application.Interfaces;
 using ProjectArchitecture.Application.Requests;
+using ProjectArchitecture.Domain.Entities;
+using System.Net.Mime;
 
 namespace ProjectArchitecture.WebApi.Controllers
 {
@@ -14,8 +19,14 @@ namespace ProjectArchitecture.WebApi.Controllers
             _categoryService = categoryService;
         }
 
+        /* Conferir se o [ProducesResponseType(StatusCodes.Status200OK)] consegue inferir que é uma lista
+         * Pois estou utilizando o IEnumerable que é uma interface. 
+         * Para fazer a inferencia de tipo deveria haver um tipo concreto ao inves de uma interface
+         */
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<IActionResult>>> GetCategories()
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategories()
         {
             var categories = await _categoryService.GetCategories();
             return Ok(categories);
@@ -23,7 +34,11 @@ namespace ProjectArchitecture.WebApi.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<IActionResult> GetCategoryById([FromRoute] int id)
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<CategoryDTO>> GetCategoryById([FromRoute] int id)
         {
             var category = await _categoryService.GetCategoryById(id);
 
@@ -34,25 +49,42 @@ namespace ProjectArchitecture.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest request)
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<CategoryDTO>> CreateCategory([FromBody] CreateCategoryRequest request)
         {
-            await _categoryService.Add(request);
-            return Ok();
+            var categoryCreatedDTO = await _categoryService.Add(request);
+            return CreatedAtAction(nameof(GetCategoryById), new { id = categoryCreatedDTO.Id }, categoryCreatedDTO);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryRequest request)
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<CategoryDTO>> UpdateCategory([FromBody] UpdateCategoryRequest request)
         {
-            await _categoryService.Update(request);
-            return Ok();
+            var categoryDTO = await _categoryService.GetCategoryById(request.Id);
+            if (categoryDTO == null) return NotFound($"Category with id {request.Id} not found.");
+
+            var changedCategory = await _categoryService.Update(request);
+            return Ok(changedCategory);
         }
 
         [HttpDelete]
         [Route("{id:int}")]
-        public async Task<IActionResult> DeleteCategory([FromRoute] int id)
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<CategoryDTO>> DeleteCategory([FromRoute] int id)
         {
+            var categoryDTO = await _categoryService.GetCategoryById(id);
+            if (categoryDTO == null) return NotFound($"Category with id {id} not found.");
+
             await _categoryService.Remove(id);
-            return Ok();
+            return Ok(categoryDTO);
         }
     }
 }

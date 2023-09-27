@@ -7,8 +7,8 @@ namespace ProjectArchitecture.Application.Interfaces
     {
         Task<IEnumerable<CategoryDTO>> GetCategories();
         Task<CategoryDTO> GetCategoryById(int? id);
-        Task Add(CreateCategoryRequest request);
-        Task Update(UpdateCategoryRequest request);
+        Task<CategoryDTO> Add(CreateCategoryRequest request);
+        Task<CategoryDTO> Update(UpdateCategoryRequest request);
         Task Remove(int? id);
     }
 }
